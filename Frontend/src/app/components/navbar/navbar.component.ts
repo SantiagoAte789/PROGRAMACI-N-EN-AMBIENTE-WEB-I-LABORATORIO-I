@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ThemeService } from '../../services/theme/theme.service';
 
 interface NavbarConfig {
   url: string;
@@ -14,6 +15,8 @@ interface NavbarConfig {
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+
+  protected readonly themeService = inject(ThemeService);
 
   navbarConfig: NavbarConfig[] = [];
 

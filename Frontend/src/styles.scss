@@ -1,5 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import "bootstrap-icons/font/bootstrap-icons";
+
+:root,
+[data-bs-theme='light'] {
+  --app-purple-text: #7e22ce;
+  --app-purple-bg-subtle: #f3e8ff;
+}
+
+[data-bs-theme='dark'] {
+  --app-purple-text: #d8b4fe;
+  --app-purple-bg-subtle: #3b2358;
+}
