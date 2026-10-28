@@ -1,0 +1,142 @@
+
+<section class="reservation-page container">
+  <div class="mb-4">
+    <a href="#" class="reservation-page__back">
+      <i class="bi bi-arrow-left"></i>
+      Volver a eventos
+    </a>
+
+    <h1 class="reservation-page__title mt-3">
+      Crear reserva
+    </h1>
+    <p class="text-secondary">
+      Revisa los detalles del evento y selecciona tus entradas.
+    </p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Detalle del evento -->
+    <div class="col-12 col-lg-7">
+      <article class="event-detail card h-100">
+        <img
+          src="https://placehold.co/900x450/212529/ffffff?text=Evento"
+          class="event-detail__image"
+          alt="Imagen del evento"
+        />
+
+        <div class="card-body p-4">
+          <span class="event-detail__category">
+            Evento seleccionado
+          </span>
+
+          <h2 class="event-detail__title mt-2">
+            Concierto de música en vivo
+          </h2>
+
+          <p class="event-detail__description">
+            Disfruta de una experiencia musical única en una noche
+            llena de música y entretenimiento.
+          </p>
+
+          <div class="event-detail__info">
+            <div class="event-detail__item">
+              <i class="bi bi-geo-alt"></i>
+              <div>
+                <span class="event-detail__label">Lugar</span>
+                <strong>Teatro Municipal</strong>
+                <span>Cali, Colombia</span>
+              </div>
+            </div>
+
+            <div class="event-detail__item">
+              <i class="bi bi-calendar-event"></i>
+              <div>
+                <span class="event-detail__label">Fecha de inicio</span>
+                <strong>15 de noviembre de 2026</strong>
+              </div>
+            </div>
+
+            <div class="event-detail__item">
+              <i class="bi bi-ticket-perforated"></i>
+              <div>
+                <span class="event-detail__label">Precio por entrada</span>
+                <strong>$80.000 COP</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Formulario de reserva -->
+    <div class="col-12 col-lg-5">
+      <div class="reservation-form card">
+        <div class="card-body p-4">
+          <h2 class="reservation-form__title">
+            Tu reserva
+          </h2>
+
+          <p class="text-secondary">
+            Selecciona la cantidad de entradas que deseas comprar.
+          </p>
+
+          <form id="reservation-form">
+            <div class="mb-4">
+              <label for="ticket-quantity" class="form-label">
+                Número de entradas
+              </label>
+
+              <input
+                type="number"
+                class="form-control reservation-form__input"
+                id="ticket-quantity"
+                name="cantidad"
+                min="1"
+                max="10"
+                value="1"
+                required
+              />
+
+              <small class="text-secondary">
+                Puedes reservar entre 1 y 10 entradas.
+              </small>
+            </div>
+
+            <div class="reservation-form__summary">
+              <div class="reservation-form__summary-row">
+                <span>Precio por entrada</span>
+                <span>$80.000 COP</span>
+              </div>
+
+              <div class="reservation-form__summary-row">
+                <span>Cantidad</span>
+                <span id="quantity-summary">1</span>
+              </div>
+
+              <hr />
+
+              <div class="reservation-form__total">
+                <span>Total</span>
+                <strong id="reservation-total">
+                  $80.000 COP
+                </strong>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary reservation-form__submit w-100 mt-4"
+            >
+              <i class="bi bi-check-circle me-2"></i>
+              Realizar reserva
+            </button>
+
+            <p class="reservation-form__notice mt-3 mb-0">
+              La reserva estará sujeta a la disponibilidad de entradas.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

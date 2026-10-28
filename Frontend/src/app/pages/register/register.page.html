@@ -1,0 +1,175 @@
+<div class="auth-page">
+  <div class="row g-0 min-vh-100">
+
+    <!-- Panel informativo -->
+    <div class="col-lg-5 d-none d-lg-flex auth-info">
+      <div class="auth-info-content">
+        <h1>Únete a EventApp</h1>
+
+        <p>
+          Crea tu cuenta y comienza a gestionar
+          tus eventos y reservas.
+        </p>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <div
+      class="col-12 col-lg-7 d-flex align-items-center justify-content-center py-5"
+    >
+      <div class="auth-card">
+
+        <div class="text-center mb-4">
+          <h2>Crear cuenta</h2>
+
+          <p class="text-muted">
+            Completa la información para registrarte
+          </p>
+        </div>
+
+        <form>
+
+          <!-- Nombre completo -->
+          <div class="mb-3">
+            <label
+              for="fullName"
+              class="form-label"
+            >
+              Nombre completo
+            </label>
+
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              class="form-control"
+              placeholder="Ej. Juan Pérez"
+              required
+            >
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label
+              for="email"
+              class="form-label"
+            >
+              Correo electrónico
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="correo@ejemplo.com"
+              required
+            >
+          </div>
+
+          <!-- Tipo de usuario -->
+          <div class="mb-3">
+            <label
+              for="userType"
+              class="form-label"
+            >
+              Tipo de usuario
+            </label>
+
+            <select
+              id="userType"
+              name="userType"
+              class="form-select"
+              required
+            >
+              <option value="" selected disabled>
+                Selecciona un tipo de usuario
+              </option>
+
+              <option value="cliente">
+                Cliente
+              </option>
+
+              <option value="agente">
+                Agente
+              </option>
+            </select>
+          </div>
+
+          <!-- Ciudad -->
+          <div class="mb-3">
+            <label
+              for="city"
+              class="form-label"
+            >
+              Ciudad
+            </label>
+
+            <select
+              id="city"
+              name="city"
+              class="form-select"
+              required
+            >
+              <option value="" selected disabled>
+                Selecciona tu ciudad
+              </option>
+
+              <option value="bogota">Bogotá</option>
+              <option value="medellin">Medellín</option>
+              <option value="cali">Cali</option>
+              <option value="tulua">Tuluá</option>
+              <option value="pereira">Pereira</option>
+              <option value="armenia">Armenia</option>
+              <option value="manizales">Manizales</option>
+            </select>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-4">
+            <label
+              for="password"
+              class="form-label"
+            >
+              Contraseña
+            </label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Ingresa una contraseña"
+              required
+            >
+          </div>
+
+          <!-- Botón -->
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+          >
+            Registrar
+          </button>
+
+        </form>
+
+        <!-- Login -->
+        <div class="text-center mt-4">
+          <span class="text-muted">
+            ¿Ya tienes una cuenta?
+          </span>
+
+          <a
+            routerLink="/login"
+            class="auth-link"
+          >
+            Iniciar sesión
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

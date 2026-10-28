@@ -1,0 +1,107 @@
+<div class="auth-page">
+  <div class="row g-0 min-vh-100">
+
+    <!-- Panel informativo -->
+    <div class="col-lg-6 d-none d-lg-flex auth-info">
+      <div class="auth-info-content">
+        <h1>EventApp</h1>
+
+        <p>
+          Gestiona tus eventos, reservas y experiencias
+          desde un solo lugar.
+        </p>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center">
+      <div class="auth-card">
+
+        <div class="text-center mb-4">
+          <h2>Iniciar sesión</h2>
+
+          <p class="text-muted">
+            Ingresa tus credenciales para continuar
+          </p>
+        </div>
+
+        <form>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              Correo electrónico
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="correo@ejemplo.com"
+              required
+            >
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">
+              Contraseña
+            </label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Ingresa tu contraseña"
+              required
+            >
+          </div>
+
+          <!-- Recordar -->
+          <div class="form-check mb-4">
+            <input
+              type="checkbox"
+              id="rememberEmail"
+              name="rememberEmail"
+              class="form-check-input"
+            >
+
+            <label
+              for="rememberEmail"
+              class="form-check-label"
+            >
+              Recordar mi correo
+            </label>
+          </div>
+
+          <!-- Botón -->
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+          >
+            Iniciar sesión
+          </button>
+
+        </form>
+
+        <!-- Registro -->
+        <div class="text-center mt-4">
+          <span class="text-muted">
+            ¿No tienes una cuenta?
+          </span>
+
+          <a
+            routerLink="/register"
+            class="auth-link"
+          >
+            Crear cuenta
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

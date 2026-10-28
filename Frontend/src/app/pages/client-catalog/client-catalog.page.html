@@ -1,0 +1,211 @@
+<section class="catalog container">
+
+  <header class="mb-4">
+    <h2 class="catalog__title">Cartelera de eventos</h2>
+    <p class="text-secondary mb-0">
+      Explora los eventos, consulta su lugar, fecha y cuántas entradas quedan disponibles.
+    </p>
+  </header>
+
+  <!-- Filtros -->
+  <div class="card card-body mb-4">
+    <div class="row g-3 align-items-end">
+
+      <div class="col-12 col-lg-4">
+        <label for="catalog-search" class="form-label small fw-semibold">Buscar</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input
+            id="catalog-search"
+            type="search"
+            class="form-control"
+            placeholder="Nombre, descripción o teatro"
+            [value]="searchText()"
+            (input)="onSearch($event)"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 col-lg-2">
+        <label for="catalog-estado" class="form-label small fw-semibold">Estado</label>
+        <select id="catalog-estado" class="form-select" [value]="filters().estado ?? ''" (change)="onSelect('estado', $event)">
+          <option value="">Todos</option>
+          @for (estado of options().estados; track estado) {
+            <option [value]="estado">{{ estado }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-12 col-md-4 col-lg-2">
+        <label for="catalog-ciudad" class="form-label small fw-semibold">Ciudad</label>
+        <select id="catalog-ciudad" class="form-select" [value]="filters().ciudad ?? ''" (change)="onSelect('ciudad', $event)">
+          <option value="">Todas</option>
+          @for (ciudad of options().ciudades; track ciudad) {
+            <option [value]="ciudad">{{ ciudad }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-12 col-md-4 col-lg-2">
+        <label for="catalog-categoria" class="form-label small fw-semibold">Categoría</label>
+        <select id="catalog-categoria" class="form-select" [value]="filters().categoria ?? ''" (change)="onSelect('categoria', $event)">
+          <option value="">Todas</option>
+          @for (categoria of options().categorias; track categoria) {
+            <option [value]="categoria">{{ categoria }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-12 col-lg-2 d-grid">
+        <button type="button" class="btn btn-outline-secondary" [disabled]="!hasFilters()" (click)="clearFilters()">
+          <i class="bi bi-x-circle me-1"></i> Limpiar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  @if (detailError()) {
+    <div class="alert alert-warning" role="alert">{{ detailError() }}</div>
+  }
+
+  <!-- Estados de la consulta -->
+  @if (loading()) {
+    <div class="text-center py-5" role="status" aria-live="polite">
+      <div class="spinner-border text-primary" aria-hidden="true"></div>
+      <p class="text-secondary mt-3 mb-0">Cargando eventos…</p>
+    </div>
+  } @else if (error()) {
+    <div class="alert alert-danger d-flex align-items-center justify-content-between gap-3" role="alert">
+      <span><i class="bi bi-exclamation-triangle me-2"></i>{{ error() }}</span>
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="reload()">
+        <i class="bi bi-arrow-clockwise me-1"></i> Reintentar
+      </button>
+    </div>
+  } @else if (events().length === 0) {
+    <div class="text-center text-secondary py-5">
+      <i class="bi bi-inbox catalog__empty-icon"></i>
+      <p class="mt-2 mb-0">No hay eventos que coincidan con los filtros seleccionados.</p>
+    </div>
+  } @else {
+
+    <p class="text-secondary small mb-3" aria-live="polite">
+      {{ events().length }} {{ events().length === 1 ? 'evento encontrado' : 'eventos encontrados' }}
+    </p>
+
+    <div class="row g-4">
+      @for (event of events(); track event.codigo) {
+        <div class="col-12 col-md-6 col-xl-4">
+          <article class="catalog-card card h-100">
+
+            <div class="catalog-card__cover" [style.background]="gradient(event.categoria)">
+              <i class="bi" [class]="'bi-' + icon(event.categoria)"></i>
+              <span class="badge catalog-card__status" [class]="statusClass(event.estado)">{{ event.estado }}</span>
+              <span class="badge text-bg-light catalog-card__category">{{ event.categoria }}</span>
+            </div>
+
+            <div class="card-body d-flex flex-column">
+              <h3 class="catalog-card__name">{{ event.nombre }}</h3>
+
+              <ul class="catalog-card__meta list-unstyled text-secondary small mb-3">
+                <li><i class="bi bi-geo-alt"></i>{{ event.teatro }} · {{ event.ciudad }}</li>
+                <li><i class="bi bi-calendar-event"></i>{{ event.fecha_inicio | date: "d 'de' MMMM 'de' y" }}</li>
+                <li><i class="bi bi-clock"></i>{{ event.fecha_inicio | date: 'h:mm a' }} – {{ event.fecha_fin | date: 'h:mm a' }}</li>
+              </ul>
+
+              <div class="mt-auto">
+                @if (isOnSale(event)) {
+                  <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-secondary">Entradas disponibles</span>
+                    <strong>{{ event.entradas_disponibles }} de {{ event.capacidad }}</strong>
+                  </div>
+                  <div
+                    class="progress mb-3"
+                    role="progressbar"
+                    aria-label="Ocupación del evento"
+                    [attr.aria-valuenow]="occupancy(event)"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    <div class="progress-bar" [style.width.%]="occupancy(event)"></div>
+                  </div>
+                } @else {
+                  <p class="small text-secondary mb-3">
+                    <i class="bi bi-slash-circle me-1"></i>Sin venta de entradas
+                  </p>
+                }
+
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="catalog-card__price">{{ event.precio | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    [disabled]="loadingDetail() === event.codigo"
+                    (click)="openDetail(event.codigo)"
+                  >
+                    @if (loadingDetail() === event.codigo) {
+                      <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+                    }
+                    Ver detalle
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </article>
+        </div>
+      }
+    </div>
+  }
+
+</section>
+
+<!-- Detalle del evento (GET /api/events/:codigo) -->
+<ng-template #detailModal let-modal>
+  @if (selected(); as event) {
+    <div class="modal-header">
+      <div>
+        <span class="badge" [class]="statusClass(event.estado)">{{ event.estado }}</span>
+        <h5 class="modal-title mt-2">{{ event.nombre }}</h5>
+      </div>
+      <button type="button" class="btn-close" aria-label="Cerrar" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+      <p>{{ event.descripcion }}</p>
+
+      <dl class="row mb-0 small">
+        <dt class="col-sm-4">Categoría</dt>
+        <dd class="col-sm-8">{{ event.categoria }}</dd>
+
+        <dt class="col-sm-4">Lugar</dt>
+        <dd class="col-sm-8">{{ event.teatro }} — {{ event.direccion }}, {{ event.ciudad }}</dd>
+
+        <dt class="col-sm-4">Inicio</dt>
+        <dd class="col-sm-8">{{ event.fecha_inicio | date: "EEEE d 'de' MMMM 'de' y, h:mm a" }}</dd>
+
+        <dt class="col-sm-4">Fin</dt>
+        <dd class="col-sm-8">{{ event.fecha_fin | date: "EEEE d 'de' MMMM 'de' y, h:mm a" }}</dd>
+
+        <dt class="col-sm-4">Precio</dt>
+        <dd class="col-sm-8">{{ event.precio | currency: 'COP' : 'symbol-narrow' : '1.0-0' }} por entrada</dd>
+
+        <dt class="col-sm-4">Capacidad</dt>
+        <dd class="col-sm-8">
+          {{ event.capacidad }} personas ·
+          {{ event.entradas_reservadas }} reservadas ·
+          {{ event.entradas_disponibles }} disponibles
+        </dd>
+
+        @if (event.observaciones) {
+          <dt class="col-sm-4">Observaciones</dt>
+          <dd class="col-sm-8">{{ event.observaciones }}</dd>
+        }
+      </dl>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Cerrar</button>
+    </div>
+  }
+</ng-template>

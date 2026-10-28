@@ -1,0 +1,239 @@
+
+<main class="reservations-page">
+  <div class="page-header">
+    <div>
+      <span class="page-header__eyebrow">GESTIÓN DE EVENTOS</span>
+      <h1>Reservas del evento</h1>
+      <p>Consulta la información del evento y administra sus reservas.</p>
+    </div>
+
+    <a href="/agent/events" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i>
+      Volver a mis eventos
+    </a>
+  </div>
+
+  <!-- Detalle del evento -->
+  <section class="event-detail">
+    <div class="event-detail__header">
+      <div class="event-detail__title">
+        <div class="event-detail__icon">
+          <i class="bi bi-ticket-perforated"></i>
+        </div>
+
+        <div>
+          <span class="section-label">DETALLE DEL EVENTO</span>
+          <h2>Festival de música</h2>
+          <p>Una experiencia musical para disfrutar en vivo.</p>
+        </div>
+      </div>
+
+      <span class="status-badge status-badge--programado">
+        Programado
+      </span>
+    </div>
+
+    <div class="event-detail__content">
+      <div class="event-detail__item">
+        <span class="detail-label">
+          <i class="bi bi-geo-alt"></i>
+          Lugar
+        </span>
+        <strong>Teatro Municipal</strong>
+      </div>
+
+      <div class="event-detail__item">
+        <span class="detail-label">
+          <i class="bi bi-building"></i>
+          Ciudad
+        </span>
+        <strong>Tuluá</strong>
+      </div>
+
+      <div class="event-detail__item">
+        <span class="detail-label">
+          <i class="bi bi-calendar-event"></i>
+          Fecha de inicio
+        </span>
+        <strong>15/11/2026 - 6:00 p. m.</strong>
+      </div>
+
+      <div class="event-detail__item">
+        <span class="detail-label">
+          <i class="bi bi-calendar-check"></i>
+          Fecha de finalización
+        </span>
+        <strong>15/11/2026 - 11:00 p. m.</strong>
+      </div>
+
+      <div class="event-detail__item">
+        <span class="detail-label">
+          <i class="bi bi-cash"></i>
+          Precio por entrada
+        </span>
+        <strong>$80.000</strong>
+      </div>
+
+      <div class="event-detail__item">
+        <span class="detail-label">
+          <i class="bi bi-people"></i>
+          Capacidad
+        </span>
+        <strong>500 personas</strong>
+      </div>
+    </div>
+
+    <div class="event-detail__description">
+      <span class="detail-label">Descripción</span>
+      <p>
+        Festival con presentaciones musicales en vivo, artistas invitados
+        y diferentes propuestas para los amantes de la música.
+      </p>
+    </div>
+  </section>
+
+  <!-- Resumen de reservas -->
+  <section class="reservation-summary">
+    <div class="summary-card">
+      <div class="summary-card__icon summary-card__icon--blue">
+        <i class="bi bi-receipt"></i>
+      </div>
+      <div>
+        <span>Total de reservas</span>
+        <strong>3</strong>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-card__icon summary-card__icon--green">
+        <i class="bi bi-ticket-perforated"></i>
+      </div>
+      <div>
+        <span>Entradas reservadas</span>
+        <strong>8</strong>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-card__icon summary-card__icon--purple">
+        <i class="bi bi-currency-dollar"></i>
+      </div>
+      <div>
+        <span>Valor de reservas</span>
+        <strong>$640.000</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabla de reservas -->
+  <section class="reservations-section">
+    <div class="section-header">
+      <div>
+        <h2>Reservas registradas</h2>
+        <p>Consulta el estado y la información de cada reserva.</p>
+      </div>
+
+      <span class="reservations-count">3 reservas</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table reservations-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Fecha de reserva</th>
+            <th>Entradas</th>
+            <th>Valor total</th>
+            <th>Estado</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <span class="reservation-code">#RES-001</span>
+            </td>
+            <td>01/10/2026</td>
+            <td>3</td>
+            <td class="reservation-total">$240.000</td>
+            <td>
+              <span class="status-badge status-badge--confirmed">
+                <i class="bi bi-check-circle"></i>
+                Confirmada
+              </span>
+            </td>
+            <td>Sin observaciones</td>
+            <td>
+              <a
+                href="/agent/reservations/edit/1"
+                class="btn btn-edit"
+                aria-label="Editar reserva RES-001"
+              >
+                <i class="bi bi-pencil-square"></i>
+                Editar
+              </a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="reservation-code">#RES-002</span>
+            </td>
+            <td>02/10/2026</td>
+            <td>2</td>
+            <td class="reservation-total">$160.000</td>
+            <td>
+              <span class="status-badge status-badge--reserved">
+                <i class="bi bi-clock"></i>
+                Reservada
+              </span>
+            </td>
+            <td>Solicita ubicación central</td>
+            <td>
+              <a
+                href="/agent/reservations/edit/2"
+                class="btn btn-edit"
+                aria-label="Editar reserva RES-002"
+              >
+                <i class="bi bi-pencil-square"></i>
+                Editar
+              </a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <span class="reservation-code">#RES-003</span>
+            </td>
+            <td>03/10/2026</td>
+            <td>3</td>
+            <td class="reservation-total">$240.000</td>
+            <td>
+              <span class="status-badge status-badge--cancelled">
+                <i class="bi bi-x-circle"></i>
+                Cancelada
+              </span>
+            </td>
+            <td>Cancelación solicitada por el cliente</td>
+            <td>
+              <a
+                href="/agent/reservations/edit/3"
+                class="btn btn-edit"
+                aria-label="Editar reserva RES-003"
+              >
+                <i class="bi bi-pencil-square"></i>
+                Editar
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer">
+      <span>Mostrando 3 reservas del evento</span>
+    </div>
+  </section>
+</main>

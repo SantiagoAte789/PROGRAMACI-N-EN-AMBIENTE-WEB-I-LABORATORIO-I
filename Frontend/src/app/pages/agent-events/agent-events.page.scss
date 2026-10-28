@@ -1,0 +1,270 @@
+.events-content {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.events-panel {
+  overflow: hidden;
+  border: 1px solid #e9edf3;
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgb(33 37 41 / 4%);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid #edf0f4;
+
+    h2 {
+      margin: 0 0 0.4rem;
+      color: #212529;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+      color: #7b8492;
+      font-size: 0.85rem;
+    }
+  }
+
+  &__footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #edf0f4;
+    color: #7b8492;
+    font-size: 0.8rem;
+  }
+}
+
+.events-count {
+  flex-shrink: 0;
+  padding: 0.4rem 0.75rem;
+  border-radius: 2rem;
+  background-color: #eff5ff;
+  color: #0d6efd;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.events-table {
+  min-width: 1050px;
+
+  thead th {
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid #e9edf3;
+    background-color: #f8f9fc;
+    color: #737d8c;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid #f0f2f6;
+    color: #596273;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #fafbfe;
+    }
+
+    &:last-child td {
+      border-bottom: 0;
+    }
+  }
+}
+
+.event-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  &__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 0.7rem;
+    font-size: 1.1rem;
+
+    &--music {
+      background-color: #eff5ff;
+      color: #0d6efd;
+    }
+
+    &--theater {
+      background-color: #f3edff;
+      color: #7952b3;
+    }
+
+    &--comedy {
+      background-color: #fff4e5;
+      color: #d98200;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    small {
+      color: #929baa;
+      font-size: 0.72rem;
+    }
+  }
+
+  &__name {
+    max-width: 190px;
+    overflow: hidden;
+    color: #28313f;
+    font-weight: 650;
+    text-overflow: ellipsis;
+  }
+}
+
+.event-location,
+.event-date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  > span {
+    color: #414b5a;
+    font-weight: 500;
+  }
+
+  small {
+    color: #929baa;
+    font-size: 0.75rem;
+  }
+}
+
+.event-price {
+  color: #28313f;
+  font-weight: 700;
+
+  &__currency {
+    display: block;
+    margin-top: 0.25rem;
+    color: #929baa;
+    font-size: 0.7rem;
+  }
+}
+
+.event-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 2rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  &--scheduled {
+    background-color: #edf3ff;
+    color: #2764c5;
+  }
+
+  &--ticketing {
+    background-color: #fff4df;
+    color: #a96900;
+  }
+
+  &--live {
+    background-color: #fdecec;
+    color: #dc3545;
+  }
+
+  &--finished {
+    background-color: #e8f7ee;
+    color: #198754;
+  }
+
+  &--cancelled {
+    background-color: #f1f2f4;
+    color: #737d8c;
+  }
+}
+
+.event-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
+  .event-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 34px;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid #e2e7ef;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+
+    i {
+      font-size: 0.9rem;
+    }
+
+    &--edit {
+      color: #0d6efd;
+
+      &:hover {
+        border-color: #c8dcff;
+        background-color: #eff5ff;
+      }
+    }
+
+    &--reservations {
+      color: #596273;
+
+      &:hover {
+        border-color: #d3d9e2;
+        background-color: #f4f6f9;
+        color: #212529;
+      }
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .events-panel {
+    &__header {
+      padding: 1.15rem;
+    }
+
+    &__footer {
+      padding: 1rem 1.15rem;
+    }
+  }
+}

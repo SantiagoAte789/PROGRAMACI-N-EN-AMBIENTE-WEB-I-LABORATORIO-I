@@ -1,0 +1,78 @@
+<nav class="app-navbar">
+
+  <!-- Parte 1: Marca -->
+  <div class="navbar-brand-section">
+
+    <a
+      routerLink="/"
+      class="navbar-brand"
+    >
+      <div class="brand-icon">
+        <i class="bi bi-calendar-event"></i>
+      </div>
+
+      <span class="brand-name">
+        EventApp
+      </span>
+    </a>
+
+  </div>
+
+
+  <!-- Parte 2: Navegación -->
+  <div class="navbar-navigation">
+
+    @for(item of navbarConfig; track item.url){
+      <a
+        [routerLink]="item.url"
+        routerLinkActive="active"
+        class="nav-link"
+      >
+        <i class="bi" [class]="'bi-' + item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    }
+
+
+  </div>
+
+
+  <!-- Parte 3: Usuario -->
+  <div class="navbar-user-section">
+
+    <div class="user-info">
+
+      <div class="user-avatar">
+        JD
+      </div>
+
+      <div class="user-data">
+        <span class="user-name">
+          Juan David
+        </span>
+
+        <span class="user-role">
+          Cliente
+        </span>
+      </div>
+
+    </div>
+
+    <div class="user-actions">
+
+      <button
+        type="button"
+        class="logout-button"
+      >
+        <i class="bi bi-box-arrow-right"></i>
+
+        <span>
+          Cerrar sesión
+        </span>
+      </button>
+
+    </div>
+
+  </div>
+
+</nav>

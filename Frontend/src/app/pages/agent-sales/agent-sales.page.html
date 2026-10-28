@@ -1,0 +1,192 @@
+<section class="sales container">
+
+  <header class="mb-4">
+    <h2 class="sales__title">Reservaciones y ventas</h2>
+    <p class="text-secondary mb-0">
+      Indicadores de ventas por evento y detalle de las reservaciones realizadas por los clientes.
+    </p>
+  </header>
+
+  <!-- ============ Resumen ============ -->
+  @if (summaryLoading()) {
+    <div class="text-center py-5" role="status" aria-live="polite">
+      <div class="spinner-border text-primary" aria-hidden="true"></div>
+      <p class="text-secondary mt-3 mb-0">Cargando resumen…</p>
+    </div>
+  } @else if (summaryError()) {
+    <div class="alert alert-danger d-flex align-items-center justify-content-between gap-3" role="alert">
+      <span><i class="bi bi-exclamation-triangle me-2"></i>{{ summaryError() }}</span>
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="loadSummary()">
+        <i class="bi bi-arrow-clockwise me-1"></i> Reintentar
+      </button>
+    </div>
+  } @else if (summary(); as data) {
+
+    <!-- Indicadores -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card sales-kpi h-100">
+          <div class="card-body">
+            <span class="sales-kpi__icon bg-success-subtle text-success"><i class="bi bi-cash-coin"></i></span>
+            <p class="sales-kpi__label">Ingresos confirmados</p>
+            <p class="sales-kpi__value">{{ data.totales.ingresos_confirmados | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</p>
+            <small class="text-secondary">{{ data.totales.confirmadas }} reservas confirmadas</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card sales-kpi h-100">
+          <div class="card-body">
+            <span class="sales-kpi__icon bg-warning-subtle text-warning-emphasis"><i class="bi bi-hourglass-split"></i></span>
+            <p class="sales-kpi__label">Ingresos pendientes</p>
+            <p class="sales-kpi__value">{{ data.totales.ingresos_pendientes | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</p>
+            <small class="text-secondary">{{ data.totales.reservadas }} reservas por confirmar</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card sales-kpi h-100">
+          <div class="card-body">
+            <span class="sales-kpi__icon bg-primary-subtle text-primary"><i class="bi bi-ticket-perforated"></i></span>
+            <p class="sales-kpi__label">Entradas vendidas</p>
+            <p class="sales-kpi__value">{{ data.totales.entradas_vendidas | number }}</p>
+            <small class="text-secondary">Sin contar reservas canceladas</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card sales-kpi h-100">
+          <div class="card-body">
+            <span class="sales-kpi__icon bg-danger-subtle text-danger"><i class="bi bi-x-octagon"></i></span>
+            <p class="sales-kpi__label">Total de reservas</p>
+            <p class="sales-kpi__value">{{ data.totales.total_reservas }}</p>
+            <small class="text-secondary">{{ data.totales.canceladas }} canceladas</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfica de barras: ingresos por evento -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <h3 class="h5 mb-0">Ingresos por evento</h3>
+          <div class="sales-legend small text-secondary">
+            <span><i class="sales-legend__dot sales-legend__dot--confirmed"></i>Confirmados</span>
+            <span><i class="sales-legend__dot sales-legend__dot--pending"></i>Pendientes</span>
+          </div>
+        </div>
+
+        <ul class="sales-chart list-unstyled mb-0">
+          @for (item of data.por_evento; track item.codigo) {
+            <li class="sales-chart__row">
+              <span class="sales-chart__label text-truncate" [title]="item.nombre">{{ item.nombre }}</span>
+
+              <div
+                class="sales-chart__track"
+                role="img"
+                [attr.aria-label]="item.nombre + ': ' + (item.ingresos_confirmados | number) + ' confirmados y ' + (item.ingresos_pendientes | number) + ' pendientes'"
+              >
+                <div class="sales-chart__bar sales-chart__bar--confirmed" [style.width.%]="barWidth(item.ingresos_confirmados)"></div>
+                <div class="sales-chart__bar sales-chart__bar--pending" [style.width.%]="barWidth(item.ingresos_pendientes)"></div>
+              </div>
+
+              <span class="sales-chart__value">
+                {{ item.ingresos_confirmados + item.ingresos_pendientes | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}
+                <small class="text-secondary d-block">{{ item.entradas }}/{{ item.capacidad }} · {{ item.ocupacion | number: '1.0-1' }}%</small>
+              </span>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  }
+
+  <!-- ============ Detalle de reservaciones ============ -->
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-3">
+        <h3 class="h5 mb-0">
+          Reservaciones
+          @if (!loading() && !error()) {
+            <span class="badge text-bg-light border ms-1">{{ reservations().length }}</span>
+          }
+        </h3>
+
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <div class="btn-group" role="group" aria-label="Filtrar por estado">
+            <button type="button" class="btn btn-sm" [class]="filters().estado ? 'btn-outline-secondary' : 'btn-secondary'" (click)="setStatus(null)">Todas</button>
+            @for (status of statuses; track status) {
+              <button type="button" class="btn btn-sm" [class]="filters().estado === status ? 'btn-secondary' : 'btn-outline-secondary'" (click)="setStatus(status)">{{ status }}</button>
+            }
+          </div>
+
+          <select class="form-select form-select-sm sales__event-select" aria-label="Filtrar por evento" [value]="filters().evento ?? ''" (change)="onEventChange($event)">
+            <option value="">Todos los eventos</option>
+            @for (item of summary()?.por_evento ?? []; track item.codigo) {
+              <option [value]="item.codigo">{{ item.nombre }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      @if (loading()) {
+        <div class="text-center py-5" role="status" aria-live="polite">
+          <div class="spinner-border text-primary" aria-hidden="true"></div>
+          <p class="text-secondary mt-3 mb-0">Cargando reservaciones…</p>
+        </div>
+      } @else if (error()) {
+        <div class="alert alert-danger d-flex align-items-center justify-content-between gap-3 mb-0" role="alert">
+          <span><i class="bi bi-exclamation-triangle me-2"></i>{{ error() }}</span>
+          <button type="button" class="btn btn-sm btn-outline-danger" (click)="reloadReservations()">
+            <i class="bi bi-arrow-clockwise me-1"></i> Reintentar
+          </button>
+        </div>
+      } @else if (reservations().length === 0) {
+        <div class="text-center text-secondary py-5">
+          <i class="bi bi-inbox sales__empty-icon"></i>
+          <p class="mt-2 mb-0">No hay reservaciones con los filtros seleccionados.</p>
+        </div>
+      } @else {
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Evento</th>
+                <th scope="col">Fecha de reserva</th>
+                <th scope="col" class="text-end">Entradas</th>
+                <th scope="col" class="text-end">Total</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of reservations(); track item.codigo) {
+                <tr>
+                  <td class="fw-semibold">#{{ item.codigo }}</td>
+                  <td>
+                    <span class="d-block">{{ item.cliente }}</span>
+                    <small class="text-secondary">{{ item.correo }}</small>
+                  </td>
+                  <td>
+                    <span class="d-block">{{ item.evento }}</span>
+                    <small class="text-secondary">{{ item.teatro }} · {{ item.ciudad }}</small>
+                  </td>
+                  <td>{{ item.fecha_reserva | date: 'd MMM y, h:mm a' }}</td>
+                  <td class="text-end">{{ item.entradas }}</td>
+                  <td class="text-end fw-semibold">{{ item.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</td>
+                  <td><span class="badge rounded-pill" [class]="statusClass(item.estado)">{{ item.estado }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+
+</section>

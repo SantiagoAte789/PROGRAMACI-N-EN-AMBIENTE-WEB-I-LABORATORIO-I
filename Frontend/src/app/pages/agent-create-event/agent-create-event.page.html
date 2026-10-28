@@ -1,0 +1,188 @@
+<section class="event-form-content">
+  <div class="event-form-panel">
+    <div class="event-form-panel__header">
+      <div>
+        <h2>Crear evento</h2>
+        <p>Completa la información para registrar un nuevo evento.</p>
+      </div>
+
+      <div class="event-form-panel__icon">
+        <i class="bi bi-calendar-event"></i>
+      </div>
+    </div>
+
+    <form class="event-form">
+      <!-- Información general -->
+      <div class="event-form__section">
+        <h3>
+          <i class="bi bi-info-circle"></i>
+          Información general
+        </h3>
+
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="nombre" class="form-label">Nombre del evento</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              placeholder="Ej. Festival de música"
+              required
+            />
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="estado" class="form-label">Estado</label>
+            <select class="form-select" id="estado" required>
+              <option value="" selected disabled>Selecciona un estado</option>
+              <option value="Programado">Programado</option>
+              <option value="En Boleteria">En Boleteria</option>
+              <option value="En Vivo">En Vivo</option>
+              <option value="Finalizado">Finalizado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea
+              class="form-control"
+              id="descripcion"
+              rows="3"
+              placeholder="Describe los detalles del evento..."
+              required
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ubicación -->
+      <div class="event-form__section">
+        <h3>
+          <i class="bi bi-geo-alt"></i>
+          Ubicación
+        </h3>
+
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="teatro" class="form-label">Teatro o lugar</label>
+            <input
+              type="text"
+              class="form-control"
+              id="teatro"
+              placeholder="Ej. Teatro Municipal"
+              required
+            />
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ciudad"
+              placeholder="Ej. Tuluá"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Fecha y capacidad -->
+      <div class="event-form__section">
+        <h3>
+          <i class="bi bi-clock"></i>
+          Fecha y capacidad
+        </h3>
+
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="fecha_inicio"
+              required
+            />
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="fecha_fin" class="form-label">Fecha de finalización</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="fecha_fin"
+              required
+            />
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="capacidad" class="form-label">Capacidad máxima</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-people"></i>
+              </span>
+              <input
+                type="number"
+                class="form-control"
+                id="capacidad"
+                min="1"
+                placeholder="Ej. 500"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label for="precio" class="form-label">Precio por entrada (COP)</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                type="number"
+                class="form-control"
+                id="precio"
+                min="0"
+                step="100"
+                placeholder="Ej. 80000"
+                required
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información adicional -->
+      <div class="event-form__section">
+        <h3>
+          <i class="bi bi-card-text"></i>
+          Información adicional
+        </h3>
+
+        <div>
+          <label for="observaciones" class="form-label">
+            Observaciones <span class="text-muted">(opcional)</span>
+          </label>
+          <textarea
+            class="form-control"
+            id="observaciones"
+            rows="3"
+            placeholder="Agrega restricciones, recomendaciones u otros detalles..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="event-form__actions">
+        <button type="reset" class="btn btn-light event-form__cancel">
+          <i class="bi bi-x-circle me-2"></i>
+          Limpiar
+        </button>
+
+        <button type="submit" class="btn btn-primary event-form__submit">
+          <i class="bi bi-check-circle me-2"></i>
+          Crear evento
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
